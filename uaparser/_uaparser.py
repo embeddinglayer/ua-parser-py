@@ -84,7 +84,7 @@ def majorize(version):
 
 
 def trim(string: str):
-    return string.lstrip()
+    return re.sub(r"^\s\s*", EMPTY, string)
 
 
 def str_mapper(string, mapping):
@@ -810,7 +810,7 @@ class OS(BaseModel):
 
 
 class UA(BaseModel):
-    ua: str
+    ua: Optional[str] = None
     browser: Browser
     cpu: CPU
     device: Device
@@ -820,7 +820,7 @@ class UA(BaseModel):
 
 class UAParser:
     def __init__(self, ua: str):
-        self.ua = ua
+        self.ua = trim(ua)[0:UA_MAX_LENGTH] if ua and len(ua) > UA_MAX_LENGTH else ua
         self._browser = None
         self._cpu = None
         self._device = None
