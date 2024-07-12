@@ -819,7 +819,7 @@ class UA(BaseModel):
 
 
 class UAParser:
-    def __init__(self, ua: str):
+    def __init__(self, ua: Optional[str]):
         self.ua = trim(ua)[0:UA_MAX_LENGTH] if ua and len(ua) > UA_MAX_LENGTH else ua
         self._browser = None
         self._cpu = None
